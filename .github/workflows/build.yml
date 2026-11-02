@@ -1,0 +1,18 @@
+name: build
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: drsounds/shore
+          path: shore-core
+      - run: cmake -S shore-core -B shore-core/build -DCMAKE_INSTALL_PREFIX="$env:RUNNER_TEMP/shore-core"
+      - run: cmake --build shore-core/build --config Release --parallel
+      - run: cmake --install shore-core/build --config Release
+      - run: cmake -S . -B build -DCMAKE_PREFIX_PATH="$env:RUNNER_TEMP/shore-core"
+      - run: cmake --build build --config Release --parallel

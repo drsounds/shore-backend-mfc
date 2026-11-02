@@ -1,0 +1,6 @@
+shore-backend-mfc provides a CMake package:
+
+  find_package(shore-backend-mfc CONFIG REQUIRED)
+  target_link_libraries(main PRIVATE shore-backend-mfc::shore-backend-mfc)
+
+Construct your SHApp with shore::backend::mfc::CreateBackend().
